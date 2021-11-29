@@ -1,0 +1,69 @@
+---
+# defaults file for joe-speedboat.mongo_easy
+
+# we use rpm default path
+es_mongodb_storage_dbpath: /var/lib/mongo
+
+### only if target node count >= 3, this values get used #######
+es_mongodb_replication_replset: rs0
+# es_mongodb_login_host: test01
+es_mongodb_replication_params:
+  - {
+    host_name: test01,
+    host_port: "{{ mongodb_net_port }}",
+    host_type: replica,
+    }
+  - {
+    host_name: test02,
+    host_port: "{{ mongodb_net_port }}",
+    host_type: replica,
+    }
+  - {
+    host_name: test03,
+    host_port: "{{ mongodb_net_port }}",
+    host_type: replica,
+    }
+es_mongodb_keyfile_content: |
+  R8604Y3fSiJu/t1tlGp85XYb4Ih7SF3TUlXNHYWuR2Qbf671Q+S8Jy8jOBXu9XIf
+  2mCe1hb8ElNvoFtcOYyRhr/R0z3uW3mjlxEilTjIPqVj2L4i9KpMSVyFQYgWno1L
+  h2uvSqqbUIfsscmniCMGaKeLwQdUKuRra/l4ctUSbjHMuvFla7tYqXHCCe0B5taG
+  M9p/Nlju9oXSrWtP3BorayWz7ZCrHgYZudVC1MhvniumWdYvhIUn9rguO5lpBENN
+  ZdfFgJmeizhkIYXW7Azq+DO0i7LeoWFiF3zMIkKvhfaere2WpGAH/Tbtc3OHAKc3
+  OB0nWE8SMlnJ1UcvWjXzH3LZnmtqdoYUl6msHSZ1bUpJ5GyYNOg4Es6PWCf54PG7
+  FTIv7r7zrSAuQhbBn3+ZSPSe17uAJ3PWznd6NAGiz/lHTJf59bWOM6OnlUqBJLBq
+  trz/kipSwH8LBJFd/IHh3mnKw5KPlzWLXZwJRN60SOuVIsqZZWsEWWL9KBcPDQWO
+  GZ0JW0UN/VtVpgP9AqakFWPsDCYuWamDtLPBb1EJVWx/c9eWhqRE5AiD3BHAlReZ
+  XihFX2QCnPXffQzvJvRYOPZpJ7oAer/7Sfn54N/g1je4oJOdagjb6ujsDPU2V6Kl
+  ElCK7p7rar//k8TrF8Q17MCx6/APyDKima6vNtgI/ZNw/PIRF8avsmbgW8g4f3oL
+  ukxlYBKx5uR5NTSaVBQ4K+bnJFrFF9F71pB1m3Bfxfk+pPoJlZmLyTYu/RfsreIL
+  QiFyuvs8ent0tDHdPkTdvPnW8Jdxd/2hvX8WSw+//nYQbjuOUstZKR3tkXwYMAw5
+  APQPeb0vbjMGW34gmA5WvCeJVUbbBdrWan29NSETXqWBqDLwmWHRDm3f22au7FUP
+  Liaiq1weiIRNAMcRIQUygMWPJj73OEU++n7vxtrj2nr4BZ3fgmvxMUdobUfUsH4C
+  tIj2rfvOXFkt6Vl/nX5bEZiONh7D
+
+es_mongodb_net_bindip: "127.0.0.1,{{ ansible_default_ipv4.address }}"
+es_mongodb_security_authorization: "enabled"
+es_mongodb_users:
+  - {
+    name: graylog,
+    password: .Change.Me.123,
+    roles: readWrite,
+    database: admin
+    }
+  - {
+    name: graylog,
+    password: .Change.Me.123,
+    roles: readWrite,
+    database: graylog
+    }
+
+es_mongodb_user_admin_name: siteUserAdmin
+es_mongodb_user_admin_password: .Change.Me.123
+
+es_mongodb_root_admin_name: siteRootAdmin
+es_mongodb_root_admin_password: .Change.Me.123
+
+es_mongodb_root_backup_name: backupuser
+es_mongodb_root_backup_password: .Change.Me.123
+
+

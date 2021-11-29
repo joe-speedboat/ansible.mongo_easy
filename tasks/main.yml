@@ -1,0 +1,28 @@
+---
+# tasks file for joe-speedboat.mongo_easy
+- name: set first node to mongodb_master
+  set_fact:
+    mongodb_master: true
+  when: inventory_hostname in groups['all'][0]
+- name: set mongodb_login_host to first host
+  set_fact:
+    es_mongodb_login_host: "{{ groups['all'][0]}}"
+
+- name: run role undergreen.mongodb role
+  import_role:
+    name: undergreen.mongodb
+  vars:
+    mongodb_storage_dbpath: "{{ es_mongodb_storage_dbpath }}"
+    mongodb_replication_replset: "{{ es_mongodb_replication_replset }}"
+    mongodb_login_host: "{{ es_mongodb_login_host }}"
+    mongodb_replication_params: "{{ es_mongodb_replication_params }}"
+    mongodb_keyfile_content: "{{ es_mongodb_keyfile_content }}"
+    mongodb_net_bindip: "{{ es_mongodb_net_bindip }}"
+    mongodb_security_authorization: "{{ es_mongodb_security_authorization }}"
+    mongodb_users: "{{ es_mongodb_users }}"
+    mongodb_user_admin_name: "{{ es_mongodb_user_admin_name }}"
+    mongodb_user_admin_password: "{{ es_mongodb_user_admin_password }}"
+    mongodb_root_admin_name: "{{ es_mongodb_root_admin_name }}"
+    mongodb_root_admin_password: "{{ es_mongodb_root_admin_password }}"
+    mongodb_root_backup_name: "{{ es_mongodb_root_backup_name }}"
+    mongodb_root_backup_password: "{{ es_mongodb_root_backup_password }}"
