@@ -2,17 +2,17 @@
 # defaults file for joe-speedboat.mongo_easy
 
 # we use rpm default path for our rhel systems
-es_mongodb_storage_dbpath: /var/lib/mongo
+me_mongodb_storage_dbpath: /var/lib/mongo
 
 ### only if target node count >= 3, this values get used #######
-es_mongodb_replication_replset: rs0
+me_mongodb_replication_replset: rs0
 
-es_mongodb_net_bindip: "127.0.0.1,{{ ansible_default_ipv4.address }}"
+me_mongodb_net_bindip: "127.0.0.1,{{ ansible_default_ipv4.address }}"
 
-es_mongodb_security_authorization: "enabled"
+me_mongodb_security_authorization: "enabled"
 
 # this is a default for our needs, you will probalby need to set []
-es_mongodb_users: # []
+me_mongodb_users: # []
   - {
     name: graylog,
     password: .Change.Me.123,
@@ -26,12 +26,12 @@ es_mongodb_users: # []
     database: graylog
     }
 
-es_mongodb_user_admin_name: siteUserAdmin
-es_mongodb_user_admin_password: .Change.Me.123
+me_mongodb_user_admin_name: siteUserAdmin
+me_mongodb_user_admin_password: .Change.Me.123
 
-es_mongodb_root_admin_name: siteRootAdmin
-es_mongodb_root_admin_password: .Change.Me.123
+me_mongodb_root_admin_name: siteRootAdmin
+me_mongodb_root_admin_password: .Change.Me.123
 
-es_mongodb_root_backup_name: backupuser
-es_mongodb_root_backup_password: .Change.Me.123
+me_mongodb_root_backup_name: backupuser
+me_mongodb_root_backup_password: .Change.Me.123
 

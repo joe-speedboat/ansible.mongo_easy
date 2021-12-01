@@ -13,52 +13,52 @@
     when: inventory_hostname in groups['all'][0]
   - name: set mongodb_login_host to first host
     set_fact:
-      es_mongodb_login_host: "{{ groups['all'][0]}}"
+      me_mongodb_login_host: "{{ groups['all'][0]}}"
   - name: set mongodb_replication_params with all hosts as member
     set_fact:
-      es_mongodb_replication_params: "{{ es_mongodb_replication_params|default([]) + [ { 'host_name': node } ] }}"
+      me_mongodb_replication_params: "{{ me_mongodb_replication_params|default([]) + [ { 'host_name': node } ] }}"
     loop: "{{ lookup('inventory_hostnames', 'all', wantlist=True) }}"
     loop_control:
       loop_var: node
  
-  - name: read es_mongodb_security_keyfile on first node
+  - name: read me_mongodb_security_keyfile on first node
     slurp:
-      src: "{{ es_mongodb_security_keyfile }}"
-    delegate_to: "{{ es_mongodb_login_host }}"
+      src: "{{ me_mongodb_security_keyfile }}"
+    delegate_to: "{{ me_mongodb_login_host }}"
     run_once: true
     ignore_errors: yes
-    register: es_mongodb_keyfile_content_read
+    register: me_mongodb_keyfile_content_read
 
-  - name: prepare es_mongodb_keyfile_content
+  - name: prepare me_mongodb_keyfile_content
     set_fact:
-      es_mongodb_keyfile_content: "{{ es_mongodb_keyfile_content_read['content']|b64decode }}"
-    when: not es_mongodb_keyfile_content_read['failed']
+      me_mongodb_keyfile_content: "{{ me_mongodb_keyfile_content_read['content']|b64decode }}"
+    when: not me_mongodb_keyfile_content_read['failed']
   
   - name: generate random string for keyfile
     set_fact:
-      es_mongodb_keyfile_content: "{{ lookup('password', '/dev/null length=741 chars=ascii_letters,digits,+/') }}"
+      me_mongodb_keyfile_content: "{{ lookup('password', '/dev/null length=741 chars=ascii_letters,digits,+/') }}"
     run_once: true
     delegate_to: localhost
-    when: es_mongodb_keyfile_content_read['failed']
+    when: me_mongodb_keyfile_content_read['failed']
 
   - name: run role undergreen.mongodb role cluster
     include_role:
       name: undergreen.mongodb
     vars:
-      mongodb_storage_dbpath: "{{ es_mongodb_storage_dbpath }}"
-      mongodb_replication_replset: "{{ es_mongodb_replication_replset }}"
-      mongodb_login_host: "{{ es_mongodb_login_host }}"
-      mongodb_replication_params: "{{ es_mongodb_replication_params }}"
-      mongodb_keyfile_content: "{{ es_mongodb_keyfile_content }}"
-      mongodb_net_bindip: "{{ es_mongodb_net_bindip }}"
-      mongodb_security_authorization: "{{ es_mongodb_security_authorization }}"
-      mongodb_users: "{{ es_mongodb_users }}"
-      mongodb_user_admin_name: "{{ es_mongodb_user_admin_name }}"
-      mongodb_user_admin_password: "{{ es_mongodb_user_admin_password }}"
-      mongodb_root_admin_name: "{{ es_mongodb_root_admin_name }}"
-      mongodb_root_admin_password: "{{ es_mongodb_root_admin_password }}"
-      mongodb_root_backup_name: "{{ es_mongodb_root_backup_name }}"
-      mongodb_root_backup_password: "{{ es_mongodb_root_backup_password }}"
+      mongodb_storage_dbpath: "{{ me_mongodb_storage_dbpath }}"
+      mongodb_replication_replset: "{{ me_mongodb_replication_replset }}"
+      mongodb_login_host: "{{ me_mongodb_login_host }}"
+      mongodb_replication_params: "{{ me_mongodb_replication_params }}"
+      mongodb_keyfile_content: "{{ me_mongodb_keyfile_content }}"
+      mongodb_net_bindip: "{{ me_mongodb_net_bindip }}"
+      mongodb_security_authorization: "{{ me_mongodb_security_authorization }}"
+      mongodb_users: "{{ me_mongodb_users }}"
+      mongodb_user_admin_name: "{{ me_mongodb_user_admin_name }}"
+      mongodb_user_admin_password: "{{ me_mongodb_user_admin_password }}"
+      mongodb_root_admin_name: "{{ me_mongodb_root_admin_name }}"
+      mongodb_root_admin_password: "{{ me_mongodb_root_admin_password }}"
+      mongodb_root_backup_name: "{{ me_mongodb_root_backup_name }}"
+      mongodb_root_backup_password: "{{ me_mongodb_root_backup_password }}"
   when: (ansible_play_hosts_all|length) > 2
 
  
@@ -68,7 +68,7 @@
     include_role:
       name: undergreen.mongodb
     vars:
-      mongodb_storage_dbpath: "{{ es_mongodb_storage_dbpath }}"
+      mongodb_storage_dbpath: "{{ me_mongodb_storage_dbpath }}"
       mongodb_disable_transparent_hugepages: true
       mongodb_login_host: localhost
       mongodb_replication_params: []
