@@ -1,5 +1,4 @@
 [mongo]
-# test01 mongodb_master=True
 test01
 test02
 test03
