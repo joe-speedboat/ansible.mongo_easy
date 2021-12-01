@@ -97,7 +97,6 @@ ansible -m ping all
 ansible-playbook roles/joe-speedboat.mongo_easy/tests/test.yml
 
 # check the status on the master nodes as you need (with 100s of terminals, this looks pretty nerdy 🦖)
-```
 mongo
   use admin
     db.auth('siteRootAdmin','.Change.Me.123')
