@@ -10,14 +10,14 @@
   - name: set first inventory node to mongodb_master
     set_fact:
       mongodb_master: true
-    when: inventory_hostname in groups['all'][0]
+    when: inventory_hostname in ansible_play_hosts_all[0]
   - name: set mongodb_login_host to first host
     set_fact:
-      me_mongodb_login_host: "{{ groups['all'][0]}}"
+      me_mongodb_login_host: "{{ ansible_play_hosts_all[0]}}"
   - name: set mongodb_replication_params with all hosts as member
     set_fact:
       me_mongodb_replication_params: "{{ me_mongodb_replication_params|default([]) + [ { 'host_name': node } ] }}"
-    loop: "{{ lookup('inventory_hostnames', 'all', wantlist=True) }}"
+    loop: "{{ ansible_play_hosts_all }}"
     loop_control:
       loop_var: node
  
