@@ -12,19 +12,19 @@ me_mongodb_net_bindip: "127.0.0.1,{{ ansible_default_ipv4.address }}"
 me_mongodb_security_authorization: "enabled"
 
 # this is a default for our needs, you will probalby need to set []
-me_mongodb_users: # []
-  - {
-    name: graylog,
-    password: .Change.Me.123,
-    roles: readWrite,
-    database: admin
-    }
-  - {
-    name: graylog,
-    password: .Change.Me.123,
-    roles: readWrite,
-    database: graylog
-    }
+me_mongodb_users: []
+#  - {
+#    name: graylog,
+#    password: .Change.Me.123,
+#    roles: readWrite,
+#    database: admin
+#    }
+#  - {
+#    name: graylog,
+#    password: .Change.Me.123,
+#    roles: readWrite,
+#    database: graylog
+#    }
 
 me_mongodb_user_admin_name: siteUserAdmin
 me_mongodb_user_admin_password: .Change.Me.123
